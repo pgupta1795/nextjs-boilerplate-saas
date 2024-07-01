@@ -1,7 +1,7 @@
-"use client";
-import { AccountCard, AccountCardFooter, AccountCardBody } from "./AccountCard";
-import { useTransition } from "react";
-import { useRouter } from "next/navigation";
+'use client';
+import { AccountCard, AccountCardFooter, AccountCardBody } from './AccountCard';
+import { useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function UpdateNameCard({ name }: { name: string }) {
   const [isPending, startTransition] = useTransition();
@@ -13,12 +13,12 @@ export default function UpdateNameCard({ name }: { name: string }) {
     const { name } = Object.fromEntries(form.entries()) as { name: string };
 
     startTransition(async () => {
-      const res = await fetch("/api/account", {
-        method: "PUT",
+      const res = await fetch('/api/account', {
+        method: 'PUT',
         body: JSON.stringify({ name }),
-        headers: { "Content-Type": "application/json" },
+        headers: { 'Content-Type': 'application/json' }
       });
-      if (res.status === 200) alert("Successfully updated name!");
+      if (res.status === 200) alert('Successfully updated name!');
       router.refresh();
     });
   };
@@ -26,23 +26,23 @@ export default function UpdateNameCard({ name }: { name: string }) {
   return (
     <AccountCard
       params={{
-        header: "Your Name",
+        header: 'Your Name',
         description:
-          "Please enter your full name, or a display name you are comfortable with.",
+          'Please enter your full name, or a display name you are comfortable with.'
       }}
     >
       <form onSubmit={handleSubmit}>
         <AccountCardBody>
           <input
-            defaultValue={name ?? ""}
-            name="name"
+            defaultValue={name ?? ''}
+            name='name'
             disabled={true}
-            className="block text-sm w-full px-3 py-2 rounded-md border border-neutral-200 focus:outline-neutral-700"
+            className='block w-full rounded-md border border-neutral-200 px-3 py-2 text-sm focus:outline-neutral-700'
           />
         </AccountCardBody>
-        <AccountCardFooter description="64 characters maximum">
+        <AccountCardFooter description='64 characters maximum'>
           <button
-            className={`bg-neutral-900 py-2.5 px-3.5 rounded-md font-medium text-white text-sm hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed`}
+            className={`rounded-md bg-neutral-900 px-3.5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50`}
             disabled={true}
           >
             Update Name

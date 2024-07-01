@@ -1,18 +1,18 @@
-import { storeSubscriptionPlans } from "@/config/subscriptions";
-import { db } from "@/lib/db/index";
-import { subscriptions } from "@/lib/db/schema/subscriptions";
-import { eq } from "drizzle-orm";
-import { stripe } from "@/lib/stripe/index";
-import { getUserAuth } from "@/lib/auth/utils";
+import { storeSubscriptionPlans } from '@/config/subscriptions';
+import { db } from '@/lib/db/index';
+import { subscriptions } from '@/lib/db/schema/subscriptions';
+import { eq } from 'drizzle-orm';
+import { stripe } from '@/lib/stripe/index';
+import { getUserAuth } from '@/lib/auth/utils';
 
 export async function getUserSubscriptionPlan() {
   const { session } = await getUserAuth();
 
   if (!session || !session.user) {
-    throw new Error("User not found.");
+    throw new Error('User not found.');
   }
 
-  const [ subscription ] = await db
+  const [subscription] = await db
     .select()
     .from(subscriptions)
     .where(eq(subscriptions.userId, session.user.id));
@@ -28,7 +28,7 @@ export async function getUserSubscriptionPlan() {
       stripeCurrentPeriodEnd: null,
       stripeCustomerId: null,
       isSubscribed: false,
-      isCanceled: false,
+      isCanceled: false
     };
 
   const isSubscribed =
@@ -56,6 +56,6 @@ export async function getUserSubscriptionPlan() {
     stripeCurrentPeriodEnd: subscription.stripeCurrentPeriodEnd,
     stripeCustomerId: subscription.stripeCustomerId,
     isSubscribed,
-    isCanceled,
+    isCanceled
   };
 }

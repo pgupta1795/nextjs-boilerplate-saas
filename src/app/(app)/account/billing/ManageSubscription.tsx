@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Loader2 } from "lucide-react";
+import React from 'react';
+import { Loader2 } from 'lucide-react';
 
 interface ManageUserSubscriptionButtonProps {
   userId: string;
@@ -18,7 +18,7 @@ export function ManageUserSubscriptionButton({
   isCurrentPlan,
   isSubscribed,
   stripeCustomerId,
-  stripePriceId,
+  stripePriceId
 }: ManageUserSubscriptionButtonProps) {
   const [isPending, startTransition] = React.useTransition();
 
@@ -27,41 +27,41 @@ export function ManageUserSubscriptionButton({
 
     startTransition(async () => {
       try {
-        const res = await fetch("/api/billing/manage-subscription", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        const res = await fetch('/api/billing/manage-subscription', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email,
             userId,
             isSubscribed,
             isCurrentPlan,
             stripeCustomerId,
-            stripePriceId,
-          }),
+            stripePriceId
+          })
         });
         const session: { url: string } = await res.json();
         if (session) {
-          window.location.href = session.url ?? "/dashboard/billing";
+          window.location.href = session.url ?? '/dashboard/billing';
         }
       } catch (err) {
         console.error((err as Error).message);
-        alert("Something went wrong, please try again later.");
+        alert('Something went wrong, please try again later.');
       }
     });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full">
+    <form onSubmit={handleSubmit} className='w-full'>
       <button
         disabled={isPending}
         className={`w-full ${
           isCurrentPlan
-            ? "bg-neutral-900 py-2.5 px-3.5 rounded-md font-medium text-white text-sm hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
-            : "text-center w-full hover:bg-neutral-100 px-3.5 py-2.5 font-medium text-sm rounded-md border border-neutral-300"
+            ? 'rounded-md bg-neutral-900 px-3.5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50'
+            : 'w-full rounded-md border border-neutral-300 px-3.5 py-2.5 text-center text-sm font-medium hover:bg-neutral-100'
         }`}
       >
-        {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        {isCurrentPlan ? "Manage Subscription" : "Subscribe"}
+        {isPending && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
+        {isCurrentPlan ? 'Manage Subscription' : 'Subscribe'}
       </button>
     </form>
   );

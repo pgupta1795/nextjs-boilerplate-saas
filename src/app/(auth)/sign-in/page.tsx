@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { signIn } from "next-auth/react";
+import { signIn } from 'next-auth/react';
 
 const Page = () => {
   return (
-    <main className="bg-popover max-w-lg mx-auto my-4 rounded-lg p-10">
-      <h1 className="text-2xl font-bold text-center">
+    <main className='mx-auto my-4 max-w-lg rounded-lg bg-popover p-10'>
+      <h1 className='text-center text-2xl font-bold'>
         Sign in to your account
       </h1>
-      <div className="mt-4">
+      <div className='mt-4'>
         <button
-          onClick={() => signIn(undefined, { callbackUrl: "/dashboard" })}
-          className="w-full bg-primary text-primary-foreground text-center hover:opacity-90 font-medium px-4 py-2 rounded-lg block"
+          onClick={() => signIn(undefined, { callbackUrl: '/dashboard' })}
+          className='block w-full rounded-lg bg-primary px-4 py-2 text-center font-medium text-primary-foreground hover:opacity-90'
         >
           Sign In
         </button>

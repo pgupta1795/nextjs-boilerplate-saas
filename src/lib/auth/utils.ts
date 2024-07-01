@@ -1,17 +1,17 @@
-import { db } from "@/lib/db/index";
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import { DefaultSession, getServerSession, NextAuthOptions } from "next-auth";
-import { Adapter } from "next-auth/adapters";
-import { redirect } from "next/navigation";
-import { env } from "@/lib/env.mjs"
-import DiscordProvider from "next-auth/providers/discord";
-import GoogleProvider from "next-auth/providers/google";
-import GithubProvider from "next-auth/providers/github";
-import AppleProvider from "next-auth/providers/apple";
+import { db } from '@/lib/db/index';
+import { DrizzleAdapter } from '@auth/drizzle-adapter';
+import { DefaultSession, getServerSession, NextAuthOptions } from 'next-auth';
+import { Adapter } from 'next-auth/adapters';
+import { redirect } from 'next/navigation';
+import { env } from '@/lib/env.mjs';
+import DiscordProvider from 'next-auth/providers/discord';
+import GoogleProvider from 'next-auth/providers/google';
+import GithubProvider from 'next-auth/providers/github';
+import AppleProvider from 'next-auth/providers/apple';
 
-declare module "next-auth" {
+declare module 'next-auth' {
   interface Session {
-    user: DefaultSession["user"] & {
+    user: DefaultSession['user'] & {
       id: string;
     };
   }
@@ -33,28 +33,27 @@ export const authOptions: NextAuthOptions = {
     session: ({ session, user }) => {
       session.user.id = user.id;
       return session;
-    },
+    }
   },
   providers: [
-     DiscordProvider({
+    DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
+      clientSecret: env.DISCORD_CLIENT_SECRET
     }),
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
+      clientSecret: env.GOOGLE_CLIENT_SECRET
     }),
     GithubProvider({
       clientId: env.GITHUB_CLIENT_ID,
-      clientSecret: env.GITHUB_CLIENT_SECRET,
+      clientSecret: env.GITHUB_CLIENT_SECRET
     }),
     AppleProvider({
       clientId: env.APPLE_CLIENT_ID,
-      clientSecret: env.APPLE_CLIENT_SECRET,
+      clientSecret: env.APPLE_CLIENT_SECRET
     })
-  ],
+  ]
 };
-
 
 export const getUserAuth = async () => {
   const session = await getServerSession(authOptions);
@@ -63,6 +62,5 @@ export const getUserAuth = async () => {
 
 export const checkAuth = async () => {
   const { session } = await getUserAuth();
-  if (!session) redirect("/api/auth/signin");
+  if (!session) redirect('/api/auth/signin');
 };
-
