@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SETUP
 
-## Getting Started
+## 29th June 2024
 
-First, run the development server:
+- Nextjs 14 + Tailwind + Typescript + next-themes
+- shadcn ui + radix ui
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 30th June 2024
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Nexjs-toploader : Added toploader to show top bar loader when new page loads
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 1st July 2024
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Added shadcn + next themes + Next-Auth (auth.js) + drizzle + postgres + subscription with stripe using CLI [kirimase](https://kirimase.dev/)
 
-## Learn More
+## components
 
-To learn more about Next.js, take a look at the following resources:
+- [shadcn ui expansions](https://shadcnui-expansions.typeart.cc/docs)
+- [enhanced buttons](https://enhanced-button.vercel.app/)
+- Landing Pages
+  - [farm-ui landing pages](https://www.farmui.com/component)
+  - [cult-ui](https://www.cult-ui.com/docs/components)
+- boilerplate CLI : [kirimase](https://kirimase.dev/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## start dev server
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Start Postgres db server and modify .env file
+- Create database and tables and push them to database
 
-## Deploy on Vercel
+  ```bash
+  npm run db:generate
+  ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  ```bash
+  npm run db:push
+  ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Start Server
+
+  ```bash
+  npm run db:studio
+  ```
+
+- Start Drizzle studio to manage database
+
+  ```bash
+  npm run db:studio
+  ```
