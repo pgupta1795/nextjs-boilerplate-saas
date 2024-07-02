@@ -1,11 +1,22 @@
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { Toaster } from '@/components/ui/toaster';
+import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
-import { Lexend } from 'next/font/google';
+import { Lexend, Syne } from 'next/font/google';
 import NextTopLoader from 'nextjs-toploader';
 import './globals.css';
 
-const lexend = Lexend({ subsets: ['latin'] });
+const lexend = Lexend({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-space-default'
+});
+
+const displayFont = Syne({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-space-display'
+});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -19,7 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' suppressHydrationWarning={true}>
-      <body className={lexend.className}>
+      <body
+        className={cn(lexend.variable, displayFont.variable, 'scroll-smooth')}
+      >
         <NextTopLoader
           color='hsl(var(--primary))'
           shadow='0 0 10px hsl(var(--primary)),0 0 5px hsl(var(--primary))'

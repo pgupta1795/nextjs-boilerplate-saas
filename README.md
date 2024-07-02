@@ -1,15 +1,31 @@
-# SETUP
+# NextJS 14 BOILERPLATE
 
-## 29th June 2024
+## Features
+
+- Next.Js 14
+- Typescript 5.5
+- Shadcn Ui
+- Dark Mode (next-themes)
+- Drizzle + Postgres as database
+- Stripe (with subscription feature)
+- Pre configured Landing Pages
+  - Hero Section templates
+  - NewsLetter template
+  - Login/Signup Templates
+  - Contact Us Template
+  - Testimony template
+  - FAQ template
+
+#### 29th June 2024
 
 - Nextjs 14 + Tailwind + Typescript + next-themes
 - shadcn ui + radix ui
 
-## 30th June 2024
+#### 30th June 2024
 
 - Nexjs-toploader : Added toploader to show top bar loader when new page loads
 
-## 1st July 2024
+#### 1st July 2024
 
 - Added shadcn + next themes + Next-Auth (auth.js) + drizzle + postgres + subscription with stripe using CLI [kirimase](https://kirimase.dev/)
 
