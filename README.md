@@ -7,7 +7,6 @@
 - Shadcn Ui
 - Dark Mode (next-themes)
 - Drizzle + Postgres as database
-- Stripe (with subscription feature)
 - Pre configured Landing Pages
   - Hero Section templates
   - NewsLetter template
@@ -27,7 +26,7 @@
 
 #### 1st July 2024
 
-- Added shadcn + next themes + Next-Auth (auth.js) + drizzle + postgres + subscription with stripe using CLI [kirimase](https://kirimase.dev/)
+- Added shadcn + next themes + Next-Auth (auth.js) + drizzle + postgres using CLI [kirimase](https://kirimase.dev/)
 
 ## components
 

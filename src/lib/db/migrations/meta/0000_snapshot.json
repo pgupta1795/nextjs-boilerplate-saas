@@ -1,5 +1,5 @@
 {
-  "id": "b2cd9742-d190-4e2f-8f03-f4ea75f513dd",
+  "id": "a9ce4bba-eb0c-4036-9131-a1618376af2f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -81,8 +81,12 @@
           "name": "account_userId_user_id_fk",
           "tableFrom": "account",
           "tableTo": "user",
-          "columnsFrom": ["userId"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -90,7 +94,10 @@
       "compositePrimaryKeys": {
         "account_provider_providerAccountId_pk": {
           "name": "account_provider_providerAccountId_pk",
-          "columns": ["provider", "providerAccountId"]
+          "columns": [
+            "provider",
+            "providerAccountId"
+          ]
         }
       },
       "uniqueConstraints": {}
@@ -124,8 +131,12 @@
           "name": "session_userId_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
-          "columnsFrom": ["userId"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -201,81 +212,13 @@
       "compositePrimaryKeys": {
         "verificationToken_identifier_token_pk": {
           "name": "verificationToken_identifier_token_pk",
-          "columns": ["identifier", "token"]
+          "columns": [
+            "identifier",
+            "token"
+          ]
         }
       },
       "uniqueConstraints": {}
-    },
-    "public.subscriptions": {
-      "name": "subscriptions",
-      "schema": "",
-      "columns": {
-        "user_id": {
-          "name": "user_id",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "stripe_customer_id": {
-          "name": "stripe_customer_id",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "stripe_subscription_id": {
-          "name": "stripe_subscription_id",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "stripe_price_id": {
-          "name": "stripe_price_id",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "stripe_current_period_end": {
-          "name": "stripe_current_period_end",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "subscriptions_user_id_user_id_fk": {
-          "name": "subscriptions_user_id_user_id_fk",
-          "tableFrom": "subscriptions",
-          "tableTo": "user",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "subscriptions_user_id_stripe_customer_id_pk": {
-          "name": "subscriptions_user_id_stripe_customer_id_pk",
-          "columns": ["user_id", "stripe_customer_id"]
-        }
-      },
-      "uniqueConstraints": {
-        "subscriptions_user_id_unique": {
-          "name": "subscriptions_user_id_unique",
-          "nullsNotDistinct": false,
-          "columns": ["user_id"]
-        },
-        "subscriptions_stripe_customer_id_unique": {
-          "name": "subscriptions_stripe_customer_id_unique",
-          "nullsNotDistinct": false,
-          "columns": ["stripe_customer_id"]
-        },
-        "subscriptions_stripe_subscription_id_unique": {
-          "name": "subscriptions_stripe_subscription_id_unique",
-          "nullsNotDistinct": false,
-          "columns": ["stripe_subscription_id"]
-        }
-      }
     }
   },
   "enums": {},

@@ -1,12 +1,6 @@
 {
   "hasSrc": true,
-  "packages": [
-    "drizzle",
-    "resend",
-    "stripe",
-    "next-auth",
-    "shadcn-ui"
-  ],
+  "packages": ["drizzle", "resend", "next-auth", "shadcn-ui"],
   "preferredPackageManager": "npm",
   "t3": false,
   "alias": "@",

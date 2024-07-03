@@ -1,7 +1,6 @@
 'use client';
-import { AccountCard, AccountCardFooter, AccountCardBody } from './AccountCard';
-import { useTransition } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
 
 export default function UpdateNameCard({ name }: { name: string }) {
   const [isPending, startTransition] = useTransition();
@@ -24,31 +23,24 @@ export default function UpdateNameCard({ name }: { name: string }) {
   };
 
   return (
-    <AccountCard
-      params={{
-        header: 'Your Name',
-        description:
-          'Please enter your full name, or a display name you are comfortable with.'
-      }}
-    >
+    <div>
+      <h1 className='prose prose-2xl'>
+        Please enter your full name, or a display name you are comfortable with.
+      </h1>
       <form onSubmit={handleSubmit}>
-        <AccountCardBody>
-          <input
-            defaultValue={name ?? ''}
-            name='name'
-            disabled={true}
-            className='block w-full rounded-md border border-neutral-200 px-3 py-2 text-sm focus:outline-neutral-700'
-          />
-        </AccountCardBody>
-        <AccountCardFooter description='64 characters maximum'>
-          <button
-            className={`rounded-md bg-neutral-900 px-3.5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50`}
-            disabled={true}
-          >
-            Update Name
-          </button>
-        </AccountCardFooter>
+        <input
+          defaultValue={name ?? ''}
+          name='name'
+          disabled={true}
+          className='block w-full rounded-md border border-neutral-200 px-3 py-2 text-sm focus:outline-neutral-700'
+        />
+        <button
+          className={`rounded-md bg-neutral-900 px-3.5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50`}
+          disabled={true}
+        >
+          Update Name
+        </button>
       </form>
-    </AccountCard>
+    </div>
   );
 }

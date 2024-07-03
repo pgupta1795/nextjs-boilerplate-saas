@@ -1,6 +1,6 @@
-import { AccountCard, AccountCardFooter, AccountCardBody } from './AccountCard';
-import { useTransition } from 'react';
+'use client';
 import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
 
 export default function UpdateEmailCard({ email }: { email: string }) {
   const [isPending, startTransition] = useTransition();
@@ -24,31 +24,24 @@ export default function UpdateEmailCard({ email }: { email: string }) {
   };
 
   return (
-    <AccountCard
-      params={{
-        header: 'Your Email',
-        description:
-          'Please enter the email address you want to use with your account.'
-      }}
-    >
+    <div>
+      <h1 className='prose prose-2xl'>
+        Please enter the email address you want to use with your account.
+      </h1>
       <form onSubmit={handleSubmit}>
-        <AccountCardBody>
-          <input
-            defaultValue={email ?? ''}
-            name='email'
-            disabled={true}
-            className='block w-full rounded-md border border-neutral-200 px-3 py-2 text-sm focus:outline-neutral-700'
-          />
-        </AccountCardBody>
-        <AccountCardFooter description='We will email vou to verify the change.'>
-          <button
-            disabled={true}
-            className={`rounded-md bg-neutral-900 px-3.5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50`}
-          >
-            Update Email
-          </button>
-        </AccountCardFooter>
+        <input
+          defaultValue={email ?? ''}
+          name='email'
+          disabled={true}
+          className='block w-full rounded-md border border-neutral-200 px-3 py-2 text-sm focus:outline-neutral-700'
+        />
+        <button
+          disabled={true}
+          className={`rounded-md bg-neutral-900 px-3.5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50`}
+        >
+          Update Email
+        </button>
       </form>
-    </AccountCard>
+    </div>
   );
 }
