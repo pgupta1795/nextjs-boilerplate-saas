@@ -1,0 +1,719 @@
+{
+  "id": "65e89ff3-7000-4dc3-9dbe-938ef2cb0040",
+  "prevId": "ef8fb306-eb9d-44c0-8ca3-104be55d0a74",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.pgupta1795-saas-starterkit_account": {
+      "name": "pgupta1795-saas-starterkit_account",
+      "schema": "",
+      "columns": {
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider": {
+          "name": "provider",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "providerAccountId": {
+          "name": "providerAccountId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "refresh_token": {
+          "name": "refresh_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "access_token": {
+          "name": "access_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "token_type": {
+          "name": "token_type",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scope": {
+          "name": "scope",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_token": {
+          "name": "id_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "session_state": {
+          "name": "session_state",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "account_userId_idx": {
+          "name": "account_userId_idx",
+          "columns": [
+            {
+              "expression": "userId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "pgupta1795-saas-starterkit_account_userId_pgupta1795-saas-starterkit_user_id_fk": {
+          "name": "pgupta1795-saas-starterkit_account_userId_pgupta1795-saas-starterkit_user_id_fk",
+          "tableFrom": "pgupta1795-saas-starterkit_account",
+          "tableTo": "pgupta1795-saas-starterkit_user",
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "pgupta1795-saas-starterkit_account_provider_providerAccountId_pk": {
+          "name": "pgupta1795-saas-starterkit_account_provider_providerAccountId_pk",
+          "columns": ["provider", "providerAccountId"]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "public.pgupta1795-saas-starterkit_feedback": {
+      "name": "pgupta1795-saas-starterkit_feedback",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "message": {
+          "name": "message",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
+          "type": "feedback-label",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "feedback-status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Open'"
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "pgupta1795-saas-starterkit_feedback_userId_pgupta1795-saas-starterkit_user_id_fk": {
+          "name": "pgupta1795-saas-starterkit_feedback_userId_pgupta1795-saas-starterkit_user_id_fk",
+          "tableFrom": "pgupta1795-saas-starterkit_feedback",
+          "tableTo": "pgupta1795-saas-starterkit_user",
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.pgupta1795-saas-starterkit_membersToOrganizations": {
+      "name": "pgupta1795-saas-starterkit_membersToOrganizations",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "gen_random_uuid()"
+        },
+        "memberId": {
+          "name": "memberId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "memberEmail": {
+          "name": "memberEmail",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "organizationId": {
+          "name": "organizationId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "org-member-role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Viewer'"
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "pgupta1795-saas-starterkit_membersToOrganizations_memberId_pgupta1795-saas-starterkit_user_id_fk": {
+          "name": "pgupta1795-saas-starterkit_membersToOrganizations_memberId_pgupta1795-saas-starterkit_user_id_fk",
+          "tableFrom": "pgupta1795-saas-starterkit_membersToOrganizations",
+          "tableTo": "pgupta1795-saas-starterkit_user",
+          "columnsFrom": ["memberId"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "pgupta1795-saas-starterkit_membersToOrganizations_organizationId_pgupta1795-saas-starterkit_organization_id_fk": {
+          "name": "pgupta1795-saas-starterkit_membersToOrganizations_organizationId_pgupta1795-saas-starterkit_organization_id_fk",
+          "tableFrom": "pgupta1795-saas-starterkit_membersToOrganizations",
+          "tableTo": "pgupta1795-saas-starterkit_organization",
+          "columnsFrom": ["organizationId"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "pgupta1795-saas-starterkit_membersToOrganizations_id_memberId_organizationId_pk": {
+          "name": "pgupta1795-saas-starterkit_membersToOrganizations_id_memberId_organizationId_pk",
+          "columns": ["id", "memberId", "organizationId"]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "public.pgupta1795-saas-starterkit_orgRequest": {
+      "name": "pgupta1795-saas-starterkit_orgRequest",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "organizationId": {
+          "name": "organizationId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "orgRequest_organizationId_idx": {
+          "name": "orgRequest_organizationId_idx",
+          "columns": [
+            {
+              "expression": "organizationId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "pgupta1795-saas-starterkit_orgRequest_userId_pgupta1795-saas-starterkit_user_id_fk": {
+          "name": "pgupta1795-saas-starterkit_orgRequest_userId_pgupta1795-saas-starterkit_user_id_fk",
+          "tableFrom": "pgupta1795-saas-starterkit_orgRequest",
+          "tableTo": "pgupta1795-saas-starterkit_user",
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "pgupta1795-saas-starterkit_orgRequest_organizationId_pgupta1795-saas-starterkit_organization_id_fk": {
+          "name": "pgupta1795-saas-starterkit_orgRequest_organizationId_pgupta1795-saas-starterkit_organization_id_fk",
+          "tableFrom": "pgupta1795-saas-starterkit_orgRequest",
+          "tableTo": "pgupta1795-saas-starterkit_organization",
+          "columnsFrom": ["organizationId"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.pgupta1795-saas-starterkit_organization": {
+      "name": "pgupta1795-saas-starterkit_organization",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image": {
+          "name": "image",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "ownerId": {
+          "name": "ownerId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "pgupta1795-saas-starterkit_organization_ownerId_pgupta1795-saas-starterkit_user_id_fk": {
+          "name": "pgupta1795-saas-starterkit_organization_ownerId_pgupta1795-saas-starterkit_user_id_fk",
+          "tableFrom": "pgupta1795-saas-starterkit_organization",
+          "tableTo": "pgupta1795-saas-starterkit_user",
+          "columnsFrom": ["ownerId"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.pgupta1795-saas-starterkit_session": {
+      "name": "pgupta1795-saas-starterkit_session",
+      "schema": "",
+      "columns": {
+        "sessionToken": {
+          "name": "sessionToken",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "session_userId_idx": {
+          "name": "session_userId_idx",
+          "columns": [
+            {
+              "expression": "userId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "pgupta1795-saas-starterkit_session_userId_pgupta1795-saas-starterkit_user_id_fk": {
+          "name": "pgupta1795-saas-starterkit_session_userId_pgupta1795-saas-starterkit_user_id_fk",
+          "tableFrom": "pgupta1795-saas-starterkit_session",
+          "tableTo": "pgupta1795-saas-starterkit_user",
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.pgupta1795-saas-starterkit_subscription": {
+      "name": "pgupta1795-saas-starterkit_subscription",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "lemonSqueezyId": {
+          "name": "lemonSqueezyId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "orderId": {
+          "name": "orderId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "orgId": {
+          "name": "orgId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "variantId": {
+          "name": "variantId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "pgupta1795-saas-starterkit_subscription_orgId_pgupta1795-saas-starterkit_organization_id_fk": {
+          "name": "pgupta1795-saas-starterkit_subscription_orgId_pgupta1795-saas-starterkit_organization_id_fk",
+          "tableFrom": "pgupta1795-saas-starterkit_subscription",
+          "tableTo": "pgupta1795-saas-starterkit_organization",
+          "columnsFrom": ["orgId"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "pgupta1795-saas-starterkit_subscription_lemonSqueezyId_unique": {
+          "name": "pgupta1795-saas-starterkit_subscription_lemonSqueezyId_unique",
+          "nullsNotDistinct": false,
+          "columns": ["lemonSqueezyId"]
+        }
+      }
+    },
+    "public.pgupta1795-saas-starterkit_user": {
+      "name": "pgupta1795-saas-starterkit_user",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emailVerified": {
+          "name": "emailVerified",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "image": {
+          "name": "image",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "role": {
+          "name": "role",
+          "type": "role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'User'"
+        },
+        "isNewUser": {
+          "name": "isNewUser",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.pgupta1795-saas-starterkit_verificationToken": {
+      "name": "pgupta1795-saas-starterkit_verificationToken",
+      "schema": "",
+      "columns": {
+        "identifier": {
+          "name": "identifier",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "token": {
+          "name": "token",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "pgupta1795-saas-starterkit_verificationToken_identifier_token_pk": {
+          "name": "pgupta1795-saas-starterkit_verificationToken_identifier_token_pk",
+          "columns": ["identifier", "token"]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "public.pgupta1795-saas-starterkit_waitlistUser": {
+      "name": "pgupta1795-saas-starterkit_waitlistUser",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "pgupta1795-saas-starterkit_waitlistUser_email_unique": {
+          "name": "pgupta1795-saas-starterkit_waitlistUser_email_unique",
+          "nullsNotDistinct": false,
+          "columns": ["email"]
+        }
+      }
+    },
+    "public.pgupta1795-saas-starterkit_webhookEvent": {
+      "name": "pgupta1795-saas-starterkit_webhookEvent",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "eventName": {
+          "name": "eventName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "processed": {
+          "name": "processed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "body": {
+          "name": "body",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "processingError": {
+          "name": "processingError",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "public.feedback-label": {
+      "name": "feedback-label",
+      "schema": "public",
+      "values": [
+        "Issue",
+        "Idea",
+        "Question",
+        "Complaint",
+        "Feature Request",
+        "Other"
+      ]
+    },
+    "public.feedback-status": {
+      "name": "feedback-status",
+      "schema": "public",
+      "values": ["Open", "In Progress", "Closed"]
+    },
+    "public.org-member-role": {
+      "name": "org-member-role",
+      "schema": "public",
+      "values": ["Viewer", "Developer", "Billing", "Admin"]
+    },
+    "public.role": {
+      "name": "role",
+      "schema": "public",
+      "values": ["User", "Admin", "Super Admin"]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

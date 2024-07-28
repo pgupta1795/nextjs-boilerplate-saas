@@ -1,11 +1,12 @@
-import type { Config } from "drizzle-kit";
-import { env } from "@/lib/env.mjs";
+import { env } from '@/lib/env.js';
+import { defineConfig } from 'drizzle-kit';
 
-export default {
-  schema: "./src/lib/db/schema",
-  dialect: "postgresql",
-  out: "./src/lib/db/migrations",
+export default defineConfig({
+  dialect: 'postgresql',
+  schema: './src/server/db/schema.ts',
+  // out: "./drizzle",
   dbCredentials: {
-    url: env.DATABASE_URL,
-  }
-} satisfies Config;
+    url: env.DATABASE_URL
+  },
+  tablesFilter: ['somvarsha-saas-starterkit_*']
+});

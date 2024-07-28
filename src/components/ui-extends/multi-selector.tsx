@@ -5,8 +5,9 @@ import {
   Command,
   CommandGroup,
   CommandItem,
-  CommandList,
+  CommandList
 } from '@/components/ui/command';
+import { useDebounce } from '@/lib/hooks/use-debounce';
 import { cn } from '@/lib/utils';
 import { Command as CommandPrimitive, useCommandState } from 'cmdk';
 import { X } from 'lucide-react';
@@ -22,9 +23,7 @@ export interface Option {
   /** Group the options by providing key. */
   [key: string]: string | boolean | undefined;
 }
-interface GroupOption {
-  [key: string]: Option[];
-}
+type GroupOption = Record<string, Option[]>;
 
 /**
  * Defines the props for the `MultiSelector` component.
@@ -108,27 +107,13 @@ export interface MultipleSelectorRef {
   input: HTMLInputElement;
 }
 
-export function useDebounce<T>(value: T, delay?: number): T {
-  const [debouncedValue, setDebouncedValue] = React.useState<T>(value);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedValue(value), delay || 500);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [value, delay]);
-
-  return debouncedValue;
-}
-
 function transToGroupOption(options: Option[], groupBy?: string) {
   if (options.length === 0) {
     return {};
   }
   if (!groupBy) {
     return {
-      '': options,
+      '': options
     };
   }
 
@@ -303,7 +288,7 @@ const MultipleSelector = React.forwardRef<
       triggerSearchOnFocus = false,
       commandProps,
       inputProps,
-      hideClearAllButton = false,
+      hideClearAllButton = false
     }: MultipleSelectorProps,
     ref: React.Ref<MultipleSelectorRef>
   ) => {
@@ -312,19 +297,19 @@ const MultipleSelector = React.forwardRef<
     const mouseOn = React.useRef<boolean>(false);
     const [isLoading, setIsLoading] = React.useState(false);
 
-    const [selected, setSelected] = React.useState<Option[]>(value || []);
+    const [selected, setSelected] = React.useState<Option[]>(value ?? []);
     const [options, setOptions] = React.useState<GroupOption>(
       transToGroupOption(arrayDefaultOptions, groupBy)
     );
     const [inputValue, setInputValue] = React.useState('');
-    const debouncedSearchTerm = useDebounce(inputValue, delay || 500);
+    const debouncedSearchTerm = useDebounce(inputValue, delay ?? 500);
 
     React.useImperativeHandle(
       ref,
       () => ({
         selectedValue: [...selected],
-        input: inputRef.current as HTMLInputElement,
-        focus: () => inputRef.current?.focus(),
+        input: inputRef.current!,
+        focus: () => inputRef.current?.focus()
       }),
       [selected]
     );
@@ -346,8 +331,8 @@ const MultipleSelector = React.forwardRef<
             if (input.value === '' && selected.length > 0) {
               const lastSelectOption = selected[selected.length - 1];
               // If last item is fixed, we should not remove it.
-              if (!lastSelectOption.fixed) {
-                handleUnselect(selected[selected.length - 1]);
+              if (!lastSelectOption?.fixed) {
+                lastSelectOption && handleUnselect(lastSelectOption);
               }
             }
           }
@@ -381,7 +366,7 @@ const MultipleSelector = React.forwardRef<
       const doSearch = async () => {
         setIsLoading(true);
         const res = await onSearch?.(debouncedSearchTerm);
-        setOptions(transToGroupOption(res || [], groupBy));
+        setOptions(transToGroupOption(res ?? [], groupBy));
         setIsLoading(false);
       };
 
@@ -504,7 +489,7 @@ const MultipleSelector = React.forwardRef<
             'min-h-10 rounded-md border border-input text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2',
             {
               'px-3 py-2': selected.length !== 0,
-              'cursor-text': !disabled && selected.length !== 0,
+              'cursor-text': !disabled && selected.length !== 0
             },
             className
           )}
@@ -524,13 +509,13 @@ const MultipleSelector = React.forwardRef<
                     badgeClassName
                   )}
                   data-fixed={option.fixed}
-                  data-disabled={disabled || undefined}
+                  data-disabled={disabled ?? undefined}
                 >
                   {option.label}
                   <button
                     className={cn(
                       'ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2',
-                      (disabled || option.fixed) && 'hidden'
+                      (disabled ?? option.fixed) && 'hidden'
                     )}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
@@ -579,7 +564,7 @@ const MultipleSelector = React.forwardRef<
                 {
                   'w-full': hidePlaceholderWhenSelected,
                   'px-3 py-2': selected.length === 0,
-                  'ml-1': selected.length !== 0,
+                  'ml-1': selected.length !== 0
                 },
                 inputProps?.className
               )}
@@ -589,8 +574,7 @@ const MultipleSelector = React.forwardRef<
               onClick={() => setSelected(selected.filter((s) => s.fixed))}
               className={cn(
                 (hideClearAllButton ||
-                  disabled ||
-                  selected.length < 1 ||
+                  (disabled ?? selected.length < 1) ||
                   selected.filter((s) => s.fixed).length === selected.length) &&
                   'hidden'
               )}
