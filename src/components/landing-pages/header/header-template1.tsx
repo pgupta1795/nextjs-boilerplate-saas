@@ -1,4 +1,5 @@
 import MobileNav from '@/components/landing-pages/header/mobile-nav';
+import ToggleLanguage from '@/components/landing-pages/language/toggle-language';
 import ToggleTheme2 from '@/components/landing-pages/theme/toggle-theme2';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Icons } from '@/components/ui/icons';
@@ -29,6 +30,7 @@ export default async function HeaderTemplate1() {
         </div>
 
         <div className='absolute right-4 flex items-center space-x-2'>
+          <ToggleLanguage />
           <ToggleTheme2 />
           <Suspense
             fallback={

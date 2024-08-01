@@ -18,3 +18,20 @@ Created using Create T3 App
 - Mails Support : Resend
 - Charts : recharts
 - Store : Zustand
+- i18n for localization and internationalization
+
+  ````tsx
+   interface Stock {
+   symbol: string;
+   shortName: string;
+   }
+
+   // In async components
+   const t = await getTranslations();
+   const tickers: Stock[] = t.raw('stocks');
+
+   // In client components
+   const t = useTranslations();
+   const tickers: Stock[] = t.raw('stocks');
+   ```
+  ````

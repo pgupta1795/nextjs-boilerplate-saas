@@ -2,9 +2,9 @@
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
  * for Docker builds.
  */
-
 await import('./src/lib/env.js');
 import createMDX from 'fumadocs-mdx/config';
+import withNextIntl from 'next-intl/plugin';
 
 const withMDX = createMDX({
   mdxOptions: {
@@ -43,4 +43,4 @@ const nextConfig = {
   skipTrailingSlashRedirect: true
 };
 
-export default withMDX(nextConfig);
+export default withNextIntl()(withMDX(nextConfig));

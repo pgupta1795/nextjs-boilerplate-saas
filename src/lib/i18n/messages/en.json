@@ -1,0 +1,10 @@
+{
+  "stocks": [
+    { "symbol": "^NSEI", "shortName": "NIFTY 50" },
+    { "symbol": "^NSEBANK", "shortName": "NIFTY BANK" },
+    { "symbol": "^BSESN", "shortName": "SENSEX" },
+    { "symbol": "RELIANCE.NS", "shortName": "Reliance Industries" },
+    { "symbol": "TCS.NS", "shortName": "Tata Consultancy Services" },
+    { "symbol": "HDFCBANK.NS", "shortName": "HDFC Bank" }
+  ]
+}

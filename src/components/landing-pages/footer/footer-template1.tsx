@@ -1,3 +1,4 @@
+import ToggleLanguage from '@/components/landing-pages/language/toggle-language';
 import ToggleTheme2 from '@/components/landing-pages/theme/toggle-theme2';
 import { buttonVariants } from '@/components/ui/button';
 import { Icons } from '@/components/ui/icons';
@@ -61,6 +62,7 @@ export default function FooterTemplate1() {
               <Icons.gitHub className='h-4 w-4' />
               <span className='sr-only'>{content.githubSrOnly}</span>
             </Link>
+            <ToggleLanguage />
             <ToggleTheme2 />
           </div>
         </div>

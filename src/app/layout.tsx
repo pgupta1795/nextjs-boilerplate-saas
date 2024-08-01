@@ -1,10 +1,12 @@
 import { Providers } from '@/components/providers';
+import LocaleProvider from '@/components/providers/locale-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { siteConfig, siteUrls } from '@/lib/config/site';
 import { fontHeading, fontSans } from '@/lib/fonts';
 import '@/styles/globals.css';
 import { type Metadata } from 'next';
-import React from 'react';
+import { useLocale } from 'next-intl';
+import { type ReactNode } from 'react';
 
 export const metadata: Metadata = {
   title: {
@@ -34,21 +36,21 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
-  children
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
+  const locale = useLocale();
+
   return (
-    <html lang='en' suppressHydrationWarning>
-      <body
-        className={`${fontSans.variable} ${fontHeading.variable} overflow-x-hidden font-sans`}
-      >
-        <Providers>
-          {children}
-          <Toaster richColors position='top-right' expand />
-        </Providers>
-      </body>
+    <html lang={locale} suppressHydrationWarning>
+      <LocaleProvider>
+        <body
+          className={`${fontSans.variable} ${fontHeading.variable} overflow-x-hidden font-sans`}
+        >
+          <Providers>
+            {children}
+            <Toaster richColors position='top-right' expand />
+          </Providers>
+        </body>
+      </LocaleProvider>
     </html>
   );
 }
